@@ -6,10 +6,6 @@ interface AuthContextType {
   logout: () => void;
 }
 
-const DEMO_USERS = [
-  { username: "amira", password: "123" },
-];
-
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const useAuth = () => {
@@ -27,11 +23,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [user]);
 
   const login = (username: string, password: string) => {
-    const found = DEMO_USERS.find(
-      (u) => u.username === username.trim().toLowerCase() && u.password === password
-    );
-    if (found) {
-      setUser(found.username);
+    if (username.trim() && password.trim()) {
+      setUser(username.trim());
       return true;
     }
     return false;

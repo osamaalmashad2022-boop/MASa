@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Users, GraduationCap, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import amiraImg from '@/assets/team/amira.jpeg';
+import suhaImg from '@/assets/team/suha.jpeg';
+import maryamImg from '@/assets/team/maryam.jpeg';
 
 const supervisors = [
   { name: "أ. د/ محمد شمة", role: "إشراف أكاديمي" },
@@ -9,9 +12,9 @@ const supervisors = [
 ];
 
 const teamMembers = [
-  { name: "أميرة رضا زمزم", role: "عضو فريق التطوير" },
-  { name: "سها محمد عيد", role: "عضو فريق التطوير" },
-  { name: "مريم وائل أبو العلا", role: "عضو فريق التطوير" },
+  { name: "أميرة رضا زمزم", role: "تصميم وتطوير واجهة المستخدم", image: amiraImg },
+  { name: "سها محمد عيد", role: "برمجة وتطوير الموقع", image: suhaImg },
+  { name: "مريم وائل أبو العلا", role: "إعداد وتنظيم المحتوى التعليمي", image: maryamImg },
 ];
 
 const TeamPage = () => {
@@ -65,13 +68,13 @@ const TeamPage = () => {
           <div className="grid gap-4 sm:grid-cols-3">
             {teamMembers.map((m) => (
               <Card key={m.name} className="text-center hover:shadow-lg transition-shadow">
-                <CardContent className="flex flex-col items-center gap-3 p-6">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent text-accent-foreground text-2xl font-bold">
-                    {m.name.charAt(0)}
+                <CardContent className="flex flex-col items-center gap-4 p-6">
+                  <div className="h-24 w-24 overflow-hidden rounded-full border-4 border-primary/10">
+                    <img src={m.image} alt={m.name} className="h-full w-full object-cover" />
                   </div>
                   <div>
                     <p className="text-base font-bold">{m.name}</p>
-                    <p className="text-sm text-muted-foreground">{m.role}</p>
+                    <p className="text-sm text-muted-foreground mt-1">{m.role}</p>
                   </div>
                 </CardContent>
               </Card>

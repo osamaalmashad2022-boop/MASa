@@ -4,13 +4,18 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { stagesMeta, allStages } from "@/data/stages";
-import { GraduationCap, ArrowRight, Lock, Users, Star, BookOpen, Sparkles, ChevronDown, Zap, Heart, LogOut } from "lucide-react";
+import { GraduationCap, ArrowRight, Lock, Users, Star, BookOpen, Sparkles, ChevronDown, Zap, Heart, LogOut, Calendar } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import AnimatedSection from "@/components/AnimatedSection";
 import masaLogo from "@/assets/masa-logo.png";
 import etdLogo from "@/assets/etd-logo.jpg";
 import damiettaLogo from "@/assets/damietta-logo.jpg";
 import facultyLogo from "@/assets/faculty-logo.jpg";
+import amiraImg from "@/assets/team/amira.jpeg";
+import suhaImg from "@/assets/team/suha.jpeg";
+import maryamImg from "@/assets/team/maryam.jpeg";
+import timeline1Img from "@/assets/timeline/timeline1.jpeg";
+import timeline2Img from "@/assets/timeline/timeline2.jpeg";
 
 const supervisors = [
   { name: "أ. د/ محمد شمة", role: "إشراف أكاديمي" },
@@ -18,9 +23,9 @@ const supervisors = [
 ];
 
 const teamMembers = [
-  { name: "أميرة رضا زمزم", initials: "أ", color: "from-primary to-info" },
-  { name: "سها محمد عيد", initials: "س", color: "from-accent to-success" },
-  { name: "مريم وائل أبو العلا", initials: "م", color: "from-warning to-primary" },
+  { name: "أميرة رضا زمزم", role: "تصميم وتطوير واجهة المستخدم", image: amiraImg },
+  { name: "سها محمد عيد", role: "برمجة وتطوير الموقع", image: suhaImg },
+  { name: "مريم وائل أبو العلا", role: "إعداد وتنظيم المحتوى التعليمي", image: maryamImg },
 ];
 
 const stageGradients = [
@@ -105,6 +110,7 @@ const Index = () => {
         <div className="container max-w-5xl mx-auto px-4 flex gap-1 overflow-x-auto scrollbar-none">
           {[
             { label: "الرئيسية", icon: Zap, href: "#hero" },
+            { label: "الخطة الزمنية", icon: Calendar, href: "#timeline" },
             { label: "فريق العمل", icon: Heart, href: "#team" },
             { label: "المراحل الدراسية", icon: GraduationCap, href: "#stages" },
           ].map((tab) => (
@@ -225,12 +231,12 @@ const Index = () => {
                 delay={i * 150}
                 className="group flex flex-col items-center gap-4 glass rounded-3xl p-7 hover-lift hover:shadow-glow transition-all duration-500"
               >
-                <div className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${m.color} text-white text-2xl font-bold shadow-soft group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
-                  {m.initials}
+                <div className="h-24 w-24 overflow-hidden rounded-2xl border-4 border-primary/10 shadow-soft group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                  <img src={m.image} alt={m.name} className="h-full w-full object-cover" />
                 </div>
                 <p className="font-bold text-sm text-center">{m.name}</p>
                 <Badge className="gradient-primary text-primary-foreground border-0 text-xs font-semibold group-hover:shadow-glow transition-shadow">
-                  فريق التطوير
+                  {m.role}
                 </Badge>
               </AnimatedSection>
             ))}
@@ -254,6 +260,28 @@ const Index = () => {
                 </div>
               </AnimatedSection>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== TIMELINE SECTION ===== */}
+      <section id="timeline" className="relative border-b scroll-mt-24 bg-muted/10">
+        <div className="container max-w-5xl mx-auto px-4 py-16 space-y-10">
+          <AnimatedSection animation="fade-up" className="text-center space-y-3">
+            <div className="inline-flex items-center gap-2 bg-info/10 text-info px-4 py-1.5 rounded-full text-sm font-semibold">
+              <Calendar className="h-3.5 w-3.5" /> مسار المشروع
+            </div>
+            <h2 className="text-3xl font-extrabold">الخطة الزمنية</h2>
+            <p className="text-muted-foreground text-sm max-w-md mx-auto">مراحل وخطوات تنفيذ المشروع</p>
+          </AnimatedSection>
+          
+          <div className="grid gap-8 max-w-4xl mx-auto">
+            <AnimatedSection animation="fade-right" delay={100} className="overflow-hidden rounded-3xl shadow-elevated border-4 border-background glass">
+              <img src={timeline1Img} alt="الخطة الزمنية الجزء الأول" className="w-full h-auto object-cover hover:scale-105 transition-transform duration-700" />
+            </AnimatedSection>
+            <AnimatedSection animation="fade-left" delay={200} className="overflow-hidden rounded-3xl shadow-elevated border-4 border-background glass">
+              <img src={timeline2Img} alt="الخطة الزمنية الجزء الثاني" className="w-full h-auto object-cover hover:scale-105 transition-transform duration-700" />
+            </AnimatedSection>
           </div>
         </div>
       </section>
