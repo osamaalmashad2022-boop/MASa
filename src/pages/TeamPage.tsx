@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Users, GraduationCap, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogClose } from "@/components/ui/dialog";
 import amiraImg from '@/assets/team/amira.jpeg';
 import suhaImg from '@/assets/team/suha.jpeg';
 import maryamImg from '@/assets/team/maryam.jpeg';
@@ -12,9 +13,51 @@ const supervisors = [
 ];
 
 const teamMembers = [
-  { name: "أميرة رضا زمزم", role: "تصميم وتطوير واجهة المستخدم", image: amiraImg },
-  { name: "سها محمد عيد", role: "برمجة وتطوير الموقع", image: suhaImg },
-  { name: "مريم وائل أبو العلا", role: "إعداد وتنظيم المحتوى التعليمي", image: maryamImg },
+  { 
+    name: "أميرة رضا زمزم", 
+    role: "تصميم وتطوير واجهة المستخدم", 
+    image: amiraImg,
+    details: {
+      title: "مسؤولة عن واجهة المستخدم:",
+      subtitle: "المرحلة التصميمية من حيث:",
+      tasks: [
+        "تصميم الصفحات التفاعلية",
+        "تنسيق الألوان والخطوط",
+        "تحسين تجربة المستخدم",
+        "تصميم الجرافيك والوسائط"
+      ]
+    }
+  },
+  { 
+    name: "سها محمد عيد", 
+    role: "برمجة وتطوير الموقع", 
+    image: suhaImg,
+    details: {
+      title: "مسؤولة عن البنية البرمجية:",
+      subtitle: "المرحلة التطويرية من حيث:",
+      tasks: [
+        "نظم التحكم والتتابع البرمجي",
+        "تطوير الواجهة الأمامية",
+        "ربط قواعد البيانات",
+        "ضمان استقرار المنصة"
+      ]
+    }
+  },
+  { 
+    name: "مريم وائل أبو العلا", 
+    role: "إعداد وتنظيم المحتوى التعليمي", 
+    image: maryamImg,
+    details: {
+      title: "مسؤولة عن المحتوى العلمي:",
+      subtitle: "المرحلة التحضيرية من حيث:",
+      tasks: [
+        "هيكلة المحتوى التعليمي",
+        "المواد والوسائل التعليمية",
+        "إعداد الأنشطة التفاعلية",
+        "مراجعة دقة المعلومات"
+      ]
+    }
+  },
 ];
 
 const TeamPage = () => {
@@ -67,17 +110,51 @@ const TeamPage = () => {
           </div>
           <div className="grid gap-4 sm:grid-cols-3">
             {teamMembers.map((m) => (
-              <Card key={m.name} className="text-center hover:shadow-lg transition-shadow">
-                <CardContent className="flex flex-col items-center gap-4 p-6">
-                  <div className="h-24 w-24 overflow-hidden rounded-full border-4 border-primary/10">
+              <Dialog key={m.name}>
+                <DialogTrigger asChild>
+                  <Card className="text-center hover:shadow-lg transition-shadow cursor-pointer">
+                    <CardContent className="flex flex-col items-center gap-4 p-6">
+                      <div className="h-24 w-24 overflow-hidden rounded-full border-4 border-primary/10">
+                        <img src={m.image} alt={m.name} className="h-full w-full object-cover" />
+                      </div>
+                      <div>
+                        <p className="text-base font-bold">{m.name}</p>
+                        <p className="text-sm text-muted-foreground mt-1">{m.role}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md text-center p-8 rounded-[2rem]">
+                  <div className="mx-auto h-24 w-24 overflow-hidden rounded-full border-4 border-primary/10 shadow-md mb-2">
                     <img src={m.image} alt={m.name} className="h-full w-full object-cover" />
                   </div>
-                  <div>
-                    <p className="text-base font-bold">{m.name}</p>
-                    <p className="text-sm text-muted-foreground mt-1">{m.role}</p>
+                  <DialogTitle className="text-2xl font-bold text-primary">{m.name}</DialogTitle>
+                  <p className="text-[#cda34f] font-semibold text-sm mb-4">{m.role}</p>
+                  
+                  <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 text-right space-y-3 shadow-inner">
+                    <h4 className="font-bold text-primary flex items-center gap-2">
+                      📋 {m.details.title}
+                    </h4>
+                    <hr className="border-slate-200" />
+                    <p className="text-sm font-semibold text-slate-700">{m.details.subtitle}</p>
+                    <ul className="space-y-2">
+                      {m.details.tasks.map((task, idx) => (
+                        <li key={idx} className="flex items-center gap-2 text-sm text-slate-600">
+                          <span className="text-[#cda34f]">✨</span> {task}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </CardContent>
-              </Card>
+                  
+                  <div className="mt-6 flex justify-center">
+                    <DialogClose asChild>
+                      <Button className="w-full sm:w-auto px-8 rounded-full bg-[#1e293b] hover:bg-[#0f172a] text-white">
+                        فهمت ذلك
+                      </Button>
+                    </DialogClose>
+                  </div>
+                </DialogContent>
+              </Dialog>
             ))}
           </div>
         </section>

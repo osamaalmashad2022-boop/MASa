@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogClose } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { stagesMeta, allStages } from "@/data/stages";
@@ -23,9 +24,51 @@ const supervisors = [
 ];
 
 const teamMembers = [
-  { name: "أميرة رضا زمزم", role: "تصميم وتطوير واجهة المستخدم", image: amiraImg },
-  { name: "سها محمد عيد", role: "برمجة وتطوير الموقع", image: suhaImg },
-  { name: "مريم وائل أبو العلا", role: "إعداد وتنظيم المحتوى التعليمي", image: maryamImg },
+  { 
+    name: "أميرة رضا زمزم", 
+    role: "تصميم وتطوير واجهة المستخدم", 
+    image: amiraImg,
+    details: {
+      title: "مسؤولة عن واجهة المستخدم:",
+      subtitle: "المرحلة التصميمية من حيث:",
+      tasks: [
+        "تصميم الصفحات التفاعلية",
+        "تنسيق الألوان والخطوط",
+        "تحسين تجربة المستخدم",
+        "تصميم الجرافيك والوسائط"
+      ]
+    }
+  },
+  { 
+    name: "سها محمد عيد", 
+    role: "برمجة وتطوير الموقع", 
+    image: suhaImg,
+    details: {
+      title: "مسؤولة عن البنية البرمجية:",
+      subtitle: "المرحلة التطويرية من حيث:",
+      tasks: [
+        "نظم التحكم والتتابع البرمجي",
+        "تطوير الواجهة الأمامية",
+        "ربط قواعد البيانات",
+        "ضمان استقرار المنصة"
+      ]
+    }
+  },
+  { 
+    name: "مريم وائل أبو العلا", 
+    role: "إعداد وتنظيم المحتوى التعليمي", 
+    image: maryamImg,
+    details: {
+      title: "مسؤولة عن المحتوى العلمي:",
+      subtitle: "المرحلة التحضيرية من حيث:",
+      tasks: [
+        "هيكلة المحتوى التعليمي",
+        "المواد والوسائل التعليمية",
+        "إعداد الأنشطة التفاعلية",
+        "مراجعة دقة المعلومات"
+      ]
+    }
+  },
 ];
 
 const stageGradients = [
@@ -155,7 +198,7 @@ const Index = () => {
           <div className="animate-fade-in" style={{ animationDelay: "0.2s", opacity: 0 }}>
             <div className="inline-flex items-center gap-2 gradient-primary text-primary-foreground px-6 py-2.5 rounded-full text-sm font-bold shadow-glow hover:shadow-elevated transition-shadow duration-300"
               style={{ backgroundSize: "200% 200%", animation: "gradient-shift 4s ease infinite" }}>
-              <Zap className="h-4 w-4 animate-sparkle" /> MASa — منصة تعلم الإنجليزية
+              <Zap className="h-4 w-4 animate-sparkle" /> منصة تعلم الإنجليزية
             </div>
           </div>
 
@@ -225,20 +268,53 @@ const Index = () => {
           {/* Team Members */}
           <div className="grid gap-5 sm:grid-cols-3 max-w-3xl mx-auto">
             {teamMembers.map((m, i) => (
-              <AnimatedSection
-                key={m.name}
-                animation="zoom"
-                delay={i * 150}
-                className="group flex flex-col items-center gap-4 glass rounded-3xl p-7 hover-lift hover:shadow-glow transition-all duration-500"
-              >
-                <div className="h-24 w-24 overflow-hidden rounded-2xl border-4 border-primary/10 shadow-soft group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
-                  <img src={m.image} alt={m.name} className="h-full w-full object-cover" />
-                </div>
-                <p className="font-bold text-sm text-center">{m.name}</p>
-                <Badge className="gradient-primary text-primary-foreground border-0 text-xs font-semibold group-hover:shadow-glow transition-shadow">
-                  {m.role}
-                </Badge>
-              </AnimatedSection>
+              <Dialog key={m.name}>
+                <DialogTrigger asChild>
+                  <AnimatedSection
+                    animation="zoom"
+                    delay={i * 150}
+                    className="group flex flex-col items-center gap-4 glass rounded-3xl p-7 hover-lift hover:shadow-glow transition-all duration-500 cursor-pointer"
+                  >
+                    <div className="h-24 w-24 overflow-hidden rounded-2xl border-4 border-primary/10 shadow-soft group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                      <img src={m.image} alt={m.name} className="h-full w-full object-cover" />
+                    </div>
+                    <p className="font-bold text-sm text-center">{m.name}</p>
+                    <Badge className="gradient-primary text-primary-foreground border-0 text-xs font-semibold group-hover:shadow-glow transition-shadow">
+                      {m.role}
+                    </Badge>
+                  </AnimatedSection>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md text-center p-8 rounded-[2rem]">
+                  <div className="mx-auto h-24 w-24 overflow-hidden rounded-full border-4 border-primary/10 shadow-md mb-2">
+                    <img src={m.image} alt={m.name} className="h-full w-full object-cover" />
+                  </div>
+                  <DialogTitle className="text-2xl font-bold text-primary">{m.name}</DialogTitle>
+                  <p className="text-[#cda34f] font-semibold text-sm mb-4">{m.role}</p>
+                  
+                  <div className="bg-slate-50 border border-slate-100 rounded-2xl p-5 text-right space-y-3 shadow-inner">
+                    <h4 className="font-bold text-primary flex items-center gap-2">
+                      📋 {m.details.title}
+                    </h4>
+                    <hr className="border-slate-200" />
+                    <p className="text-sm font-semibold text-slate-700">{m.details.subtitle}</p>
+                    <ul className="space-y-2">
+                      {m.details.tasks.map((task, idx) => (
+                        <li key={idx} className="flex items-center gap-2 text-sm text-slate-600">
+                          <span className="text-[#cda34f]">✨</span> {task}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <div className="mt-6 flex justify-center">
+                    <DialogClose asChild>
+                      <Button className="w-full sm:w-auto px-8 rounded-full bg-[#1e293b] hover:bg-[#0f172a] text-white">
+                        فهمت ذلك
+                      </Button>
+                    </DialogClose>
+                  </div>
+                </DialogContent>
+              </Dialog>
             ))}
           </div>
 
@@ -367,7 +443,7 @@ const Index = () => {
           <div className="container max-w-5xl mx-auto px-4 text-center space-y-3">
             <img src={masaLogo} alt="MASa" width={80} height={80} loading="lazy" className="mx-auto h-10 w-auto opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-500" />
             <p className="text-sm text-muted-foreground font-medium">
-              MASa — منصة تعلم الإنجليزية
+              منصة تعلم الإنجليزية
             </p>
             <p className="text-xs text-muted-foreground/60">
               © {new Date().getFullYear()} جميع الحقوق محفوظة
