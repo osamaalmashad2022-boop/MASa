@@ -268,22 +268,24 @@ const Index = () => {
           {/* Team Members */}
           <div className="grid gap-5 sm:grid-cols-3 max-w-3xl mx-auto">
             {teamMembers.map((m, i) => (
-              <Dialog key={m.name}>
-                <DialogTrigger asChild>
-                  <AnimatedSection
-                    animation="zoom"
-                    delay={i * 150}
-                    className="group flex flex-col items-center gap-4 glass rounded-3xl p-7 hover-lift hover:shadow-glow transition-all duration-500 cursor-pointer"
-                  >
-                    <div className="h-24 w-24 overflow-hidden rounded-2xl border-4 border-primary/10 shadow-soft group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
-                      <img src={m.image} alt={m.name} className="h-full w-full object-cover" />
+              <AnimatedSection
+                key={m.name}
+                animation="zoom"
+                delay={i * 150}
+                className="h-full"
+              >
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <div className="group flex flex-col items-center gap-4 glass rounded-3xl p-7 hover-lift hover:shadow-glow transition-all duration-500 cursor-pointer h-full w-full">
+                      <div className="h-24 w-24 overflow-hidden rounded-2xl border-4 border-primary/10 shadow-soft group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 pointer-events-none">
+                        <img src={m.image} alt={m.name} className="h-full w-full object-cover" />
+                      </div>
+                      <p className="font-bold text-sm text-center pointer-events-none">{m.name}</p>
+                      <Badge className="gradient-primary text-primary-foreground border-0 text-xs font-semibold group-hover:shadow-glow transition-shadow pointer-events-none">
+                        {m.role}
+                      </Badge>
                     </div>
-                    <p className="font-bold text-sm text-center">{m.name}</p>
-                    <Badge className="gradient-primary text-primary-foreground border-0 text-xs font-semibold group-hover:shadow-glow transition-shadow">
-                      {m.role}
-                    </Badge>
-                  </AnimatedSection>
-                </DialogTrigger>
+                  </DialogTrigger>
                 <DialogContent className="sm:max-w-md text-center p-8 rounded-[2rem]">
                   <div className="mx-auto h-24 w-24 overflow-hidden rounded-full border-4 border-primary/10 shadow-md mb-2">
                     <img src={m.image} alt={m.name} className="h-full w-full object-cover" />
@@ -314,7 +316,8 @@ const Index = () => {
                     </DialogClose>
                   </div>
                 </DialogContent>
-              </Dialog>
+                </Dialog>
+              </AnimatedSection>
             ))}
           </div>
 

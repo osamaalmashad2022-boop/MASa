@@ -113,7 +113,7 @@ const TeamPage = () => {
               <Dialog key={m.name}>
                 <DialogTrigger asChild>
                   <Card className="text-center hover:shadow-lg transition-shadow cursor-pointer">
-                    <CardContent className="flex flex-col items-center gap-4 p-6">
+                    <CardContent className="flex flex-col items-center gap-4 p-6 pointer-events-none">
                       <div className="h-24 w-24 overflow-hidden rounded-full border-4 border-primary/10">
                         <img src={m.image} alt={m.name} className="h-full w-full object-cover" />
                       </div>
